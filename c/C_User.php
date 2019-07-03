@@ -42,24 +42,51 @@ class C_User extends C_Base
 	}
 
 	public function action_login(){
+        $this->title .= '::Вход';
+        $loader = new \Twig\Loader\FilesystemLoader('./tpl/');
+        $twig = new \Twig\Environment($loader);
+		if (isset($_SESSION['basket'])){
+            $goodsInBasket = count($_SESSION['basket']);
+        } else {
+            $goodsInBasket = 0;
+		}
 		if($this->isPost()){
 
-			if (M_User::login($_POST['login'],$_POST['pass'])){
-				$_SESSION['user'] = M_User::getName();
-				header('location: index.php');
-				exit();
-			} else {
-				$error = 'Не верное имя пользователя / пароль';
-			}
+			echo '<pre>';
+			print_r($_POST['userlogin'] );
+			print_r($_POST['userpassword'] );
+			echo '</pre>';
 			
-		}		
-		$this->title .= '::Личный кабинет';
-		$this->content = $this->Template('v/v_login.php', ['error' => $error]);		
+		}	
+		echo $twig->render('login.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+	
 	}	
 
 	public function action_logout(){
 		unset($_SESSION['user']);
 		header('location: index.php');
 		exit();	
-	}		
+	}	
+	
+	public function action_registration(){
+        $this->title .= '::Регистрация нового пользователя';
+        $loader = new \Twig\Loader\FilesystemLoader('./tpl/');
+        $twig = new \Twig\Environment($loader);
+		if (isset($_SESSION['basket'])){
+            $goodsInBasket = count($_SESSION['basket']);
+        } else {
+            $goodsInBasket = 0;
+		}
+		if($this->isPost()){
+
+			echo '<pre>';
+			print_r($_POST['username'] );
+			print_r($_POST['userlogin'] );
+			print_r($_POST['userpassword'] );
+			echo '</pre>';
+			
+		}	
+		echo $twig->render('registration.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+	
+	}
 }

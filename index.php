@@ -25,6 +25,9 @@ switch ($_GET['c'])
 	case 'basket':
 		$controller = new C_Basket();
 		break;
+	case 'user':
+		$controller = new C_User();
+		break;		
 	default:
 		$controller = new C_Index();
 }

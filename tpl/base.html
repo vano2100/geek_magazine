@@ -37,7 +37,10 @@
             <li {% if main %} class="active" {% endif %}><a href="index.php">Home</a></li>
             <li {% if catalog %} class="active" {% endif %}><a href="index.php?act=view&c=сatalog">Каталог товаров</a></li>
             <li {% if basket %} class="active" {% endif %}><a href="index.php?act=view&c=basket">Корзина ({{ goodsInBasket }})</a></li>
-          </ul>
+            </ul>
+          <ul class="nav navbar-nav  navbar-right">
+              <li {% if username %} class="active" {% endif %}><a href="index.php?act=login&c=user">Вход</a></li>
+            </ul>
         </div>
       </div>
     </div>
