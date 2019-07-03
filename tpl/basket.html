@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Корзина</h1>
+{% if goods %}
+<div class="row" id="goods">
+  <ol>
+    {% for good in goods %}
+    <li>
+        {{ good.name }} - {{ good.price }}
+    </li>
+    {% endfor %}    
+  </ol>
+  <p>Total - {{ total }}</p>
+</div>
+<form action="index.php?act=clear&c=basket" method="post">
+    <input type="submit" value="Отчистить корзину" class="btn btn-primary">
+</form>
+{% endif %}
+
+{% endblock %}
