@@ -42,13 +42,11 @@ class C_User extends C_Base
 	}
 
 	public function action_login(){
-        $this->title .= '::Вход';
-        $loader = new \Twig\Loader\FilesystemLoader('./tpl/');
-        $twig = new \Twig\Environment($loader);
+    $this->title .= '::Вход';
 		if (isset($_SESSION['basket'])){
-            $goodsInBasket = count($_SESSION['basket']);
-        } else {
-            $goodsInBasket = 0;
+      $goodsInBasket = count($_SESSION['basket']);
+    } else {
+      $goodsInBasket = 0;
 		}
 		if($this->isPost()){
 
@@ -58,7 +56,7 @@ class C_User extends C_Base
 			echo '</pre>';
 			
 		}	
-		echo $twig->render('login.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+		$this->render('login.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
 	
 	}	
 
@@ -69,13 +67,11 @@ class C_User extends C_Base
 	}	
 	
 	public function action_registration(){
-        $this->title .= '::Регистрация нового пользователя';
-        $loader = new \Twig\Loader\FilesystemLoader('./tpl/');
-        $twig = new \Twig\Environment($loader);
+    $this->title .= '::Регистрация нового пользователя';
 		if (isset($_SESSION['basket'])){
-            $goodsInBasket = count($_SESSION['basket']);
-        } else {
-            $goodsInBasket = 0;
+      $goodsInBasket = count($_SESSION['basket']);
+    } else {
+      $goodsInBasket = 0;
 		}
 		if($this->isPost()){
 
@@ -86,7 +82,7 @@ class C_User extends C_Base
 			echo '</pre>';
 			
 		}	
-		echo $twig->render('registration.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+		$this->render('registration.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
 	
 	}
 }
