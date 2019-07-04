@@ -3,6 +3,8 @@ session_start();
 
 // Загрузка классов шаблонизатора
 require_once './vendor/autoload.php';
+
+// Класс для работы с БД
 require_once './db.php';
 
 
@@ -17,19 +19,15 @@ function c_autoload($classname){
 $action = 'action_';
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
 
-switch ($_GET['c'])
-{
-	case 'сatalog':
-		$controller = new C_Catalog();
-		break;
-	case 'basket':
-		$controller = new C_Basket();
-		break;
-	case 'user':
-		$controller = new C_User();
-		break;		
-	default:
+if (!empty($_GET['c'])){
+	$controllerName = 'C_' . ucfirst($_GET['c']);
+	if (class_exists($controllerName)){
+		$controller = new $controllerName();
+	} else{
 		$controller = new C_Index();
+	}
+} else {
+	$controller = new C_Index();
 }
 
 $controller->Request($action);
