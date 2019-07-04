@@ -14,7 +14,9 @@ abstract class C_Base extends C_Controller
 
 	}
 	
-	//
-	// Генерация базового шаблонаы
-	//	
+	protected function render($template, $args){
+		$loader = new \Twig\Loader\FilesystemLoader('./tpl/');
+		$twig = new \Twig\Environment($loader);
+		echo $twig->render($template, $args);	
+	}
 }

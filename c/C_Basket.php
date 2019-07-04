@@ -8,8 +8,6 @@ class C_Basket extends C_Base
 	
 	public function action_index(){
         $this->title .= '::Корзина';
-        $loader = new \Twig\Loader\FilesystemLoader('./tpl/');
-        $twig = new \Twig\Environment($loader);
         if (isset($_SESSION['basket'])){
             $goodsInBasket = count($_SESSION['basket']);
             $goods = [];
@@ -23,7 +21,7 @@ class C_Basket extends C_Base
         } else {
             $goodsInBasket = 0;
         }
-        echo $twig->render('basket.html', ['title' => $this->title, 'goods' => $goods,
+        $this->render('basket.html', ['title' => $this->title, 'goods' => $goods,
         'basket' => '1','goodsInBasket' => $goodsInBasket, 'total' => $total]);	
     }
     

@@ -6,7 +6,7 @@ require_once './vendor/autoload.php';
 require_once './db.php';
 
 
-spl_autoload_register(c_autoload);
+spl_autoload_register('c_autoload');
 function c_autoload($classname){
 	include_once("c/$classname.php");
 }
