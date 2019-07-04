@@ -44,11 +44,13 @@ class C_User extends C_Base
 	public function action_login(){
     	$this->title .= '::Вход';
 		if($this->isPost()){
-
-			echo '<pre>';
-			print_r($_POST['userlogin'] );
-			print_r($_POST['userpassword'] );
-			echo '</pre>';
+			$user = new M_User();
+			if ($user->login($_POST['userlogin'], $_POST['userpassword'])){
+				$_SESSION['user']['id'] = $user->getId();
+				$_SESSION['user']['name'] = $user->getName();
+				$_SESSION['user']['login'] = $user->getLogin();
+				header('location: index.php');
+			}
 			
 		}	
 		$this->render('login.html', ['title' => $this->title, 'username' => '1']);	

@@ -1,15 +1,38 @@
 <?
 
 class M_User{
+  private $userName;
+  private $userLogin;
+  private $userId;
 
   public function login($login, $pass){
-    if (($login == self::$validName) && ($pass == self::$validPass)){
-      return true;
-    } 
+    $sql = "SELECT id_user, user_name, user_login, user_password FROM user WHERE user_login = :login";
+    $arg = ['login' => $login];
+    $passHash = md5($pass);
+    $user = db::getRow($sql, $arg);
+    if ($user){
+      if ($user['user_login'] == $login){
+        if ($user['user_password'] == $passHash){
+          $this->userName = $user['user_name'];
+          $this->userLogin = $user['user_login'];
+          $this->userId = $user['id_user'];
+          return true;
+        }
+      }
+    }    
     return false;
   }
+
+  public function getId(){
+    return $this->userId;
+  }
+
+  public function getLogin(){
+    return $this->userLogin;
+  }
+
   public function getName(){
-    return self::$validName;
+    return $this->userName;
   }
 
   public function new($userName, $login, $password){
