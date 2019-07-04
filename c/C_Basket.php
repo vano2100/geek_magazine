@@ -9,7 +9,7 @@ class C_Basket extends C_Base
 	public function action_index(){
         $this->title .= '::Корзина';
         if (isset($_SESSION['basket'])){
-            $goodsInBasket = count($_SESSION['basket']);
+            
             $goods = [];
             foreach($_SESSION['basket'] as $id){
                 $goods[] = db::getRow('SELECT * FROM goods where id_good = :id', ['id' => $id]);
@@ -18,11 +18,9 @@ class C_Basket extends C_Base
             foreach($goods as $good){
                 $total += (int)$good['price'];
             }
-        } else {
-            $goodsInBasket = 0;
-        }
+        } 
         $this->render('basket.html', ['title' => $this->title, 'goods' => $goods,
-        'basket' => '1','goodsInBasket' => $goodsInBasket, 'total' => $total]);	
+        'basket' => '1', 'total' => $total]);	
     }
     
     public function action_view(){

@@ -15,8 +15,15 @@ abstract class C_Base extends C_Controller
 	}
 	
 	protected function render($template, $args){
+		$arg = $args;
 		$loader = new \Twig\Loader\FilesystemLoader('./tpl/');
 		$twig = new \Twig\Environment($loader);
-		echo $twig->render($template, $args);	
+		if (isset($_SESSION['basket'])){
+            $goodsInBasket = count($_SESSION['basket']);
+        } else {
+            $goodsInBasket = 0;
+		}
+		$arg['goodsInBasket'] = $goodsInBasket;
+		echo $twig->render($template, $arg);	
 	}
 }

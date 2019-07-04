@@ -42,12 +42,7 @@ class C_User extends C_Base
 	}
 
 	public function action_login(){
-    $this->title .= '::Вход';
-		if (isset($_SESSION['basket'])){
-      $goodsInBasket = count($_SESSION['basket']);
-    } else {
-      $goodsInBasket = 0;
-		}
+    	$this->title .= '::Вход';
 		if($this->isPost()){
 
 			echo '<pre>';
@@ -56,7 +51,7 @@ class C_User extends C_Base
 			echo '</pre>';
 			
 		}	
-		$this->render('login.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+		$this->render('login.html', ['title' => $this->title, 'username' => '1']);	
 	
 	}	
 
@@ -67,22 +62,14 @@ class C_User extends C_Base
 	}	
 	
 	public function action_registration(){
-    $this->title .= '::Регистрация нового пользователя';
-		if (isset($_SESSION['basket'])){
-      $goodsInBasket = count($_SESSION['basket']);
-    } else {
-      $goodsInBasket = 0;
-		}
+    	$this->title .= '::Регистрация нового пользователя';
+		
 		if($this->isPost()){
-
-			echo '<pre>';
-			print_r($_POST['username'] );
-			print_r($_POST['userlogin'] );
-			print_r($_POST['userpassword'] );
-			echo '</pre>';
-			
+			$user = new M_User();
+			$user->new($_POST['username'], $_POST['userlogin'], $_POST['userpassword']);
+			header('location: index.php?act=login&c=user');
 		}	
-		$this->render('registration.html', ['title' => $this->title, 'username' => '1','goodsInBasket' => $goodsInBasket]);	
+		$this->render('registration.html', ['title' => $this->title, 'username' => '1']);	
 	
 	}
 }

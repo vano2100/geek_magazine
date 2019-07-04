@@ -3,18 +3,42 @@
 {% block content %}
 <h1>Корзина</h1>
 {% if goods %}
-<div class="row" id="goods">
-  <ol>
-    {% for good in goods %}
-    <li>
-        {{ good.name }} - {{ good.price }}
-    </li>
-    {% endfor %}    
-  </ol>
-  <p>Total - {{ total }}</p>
-</div>
+
 <form action="index.php?act=clear&c=basket" method="post">
-    <input type="submit" value="Отчистить корзину" class="btn btn-primary">
+    <input type="submit" value="Отчистить корзину" class="btn btn-default"> <br>
+</form>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Наименование</th>
+      <th>Цена</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set count = 0 %}
+    {% for good in goods %}
+    {% set count = count + 1 %}
+    <tr>
+      <td>{{ count }}</td>
+      <td>{{ good.name }}</td>
+      <td>{{ good.price }}</td>
+    </tr>
+    {% endfor %}  
+    <tr>
+      <td colspan="2"><strong>Итого:</strong></td>
+      <td>{{ total }}</td>
+    </tr>    
+  </tbody>
+</table>
+
+<form action="" method="post">
+  <div class="form-group">
+    <label for="adr">Адрес доставки:</label>
+    <input type="text" class="form-control" name="adr" id="adr" placeholder="Адрес доставки">
+  </div>
+  <button type="submit" class="btn btn-primary">Оформить заказ</button> 
 </form>
 {% endif %}
 

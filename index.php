@@ -7,12 +7,10 @@ require_once './vendor/autoload.php';
 // Класс для работы с БД
 require_once './db.php';
 
-
 spl_autoload_register('c_autoload');
 function c_autoload($classname){
 	include_once("c/$classname.php");
 }
-
 
 //site.ru/index.php?act=auth&c=User
 
