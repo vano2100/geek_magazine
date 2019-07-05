@@ -24,5 +24,15 @@ class M_Basket{
     db::insert($sql, $arg);
   }
 
+  public function toOrder($destination){
+    $total = $this->getTotal();
+    $sql = "INSERT INTO orders (id_user, amount, id_order_status, destination) VALUES (:userId, :total, 1, :dest)";
+    $arg = ['userId' => $this->userId, 'total' => $total, 'dest' => $destination];
+    $orderId = db::insert($sql, $arg);
+    $sql = "UPDATE basket SET id_order = :orderId where id_user = :userId and id_order IS NULL";
+    $arg = ['userId' => $this->userId, 'orderId' => $orderId];
+    db::update($sql, $arg);
+  }
+
   private $userId;
 }

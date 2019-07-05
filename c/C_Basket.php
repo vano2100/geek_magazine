@@ -34,7 +34,13 @@ class C_Basket extends C_Base
     }
 
     public function action_toOrder(){
-        print_r($_POST['adr']);
+        if ($this->IsPost()){
+            $basket = new M_Basket($_SESSION['user']['id']);
+            $basket->toOrder($_POST['adr']);
+            $basket->clear();
+            unset($_SESSION['basket']);
+        }
+        $this->action_index();
     }    
 
 }
