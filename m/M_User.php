@@ -1,4 +1,4 @@
-<?
+<?php
 
 class M_User{
   private $userName;

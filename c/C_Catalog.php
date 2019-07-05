@@ -1,4 +1,5 @@
 <?php
+require_once('m/M_Basket.php');
 
 class C_Catalog extends C_Base
 {
@@ -21,12 +22,12 @@ class C_Catalog extends C_Base
     public function action_buy(){
         
         if ($this->IsPost()){
-            if (isset($_SESSION['basket'])){
-                $_SESSION['basket'][] = (int)$_POST['add'];
-            } else {
+            if (!isset($_SESSION['basket'])){
                 $_SESSION['basket'] = [];
-                $_SESSION['basket'][] = (int)$_POST['add'];
-            }            	
+            } 
+            $_SESSION['basket'][] = (int)$_POST['add'];
+            $basket = new M_Basket($_SESSION['user']['id']);
+            $basket->addGood((int)$_POST['add']);
         }
         $this->action_index();
     }
