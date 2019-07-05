@@ -43,4 +43,27 @@
 {% endif %}
 {% endif %}
 
+{% if user %}
+<p>Ваши заказы:</p>
+<table class="table table-condensed"></tbody>
+  <thead>
+    <tr>
+      <th>Дата заказа</th>
+      <th>Сумма</th>
+      <th>Адрес</th>
+      <th>Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for order in orders %}
+<tr>
+  <td>{{ order.datetime_create }}</td>
+  <td>{{ order.amount }}</td>
+  <td>{{ order.destination }}</td>
+  <td>{{ order.order_status_name }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
 {% endblock %}

@@ -34,5 +34,12 @@ class M_Basket{
     db::update($sql, $arg);
   }
 
+  public function getOrders(){
+    $sql = "SELECT o.datetime_create, o.amount, o.destination, os.order_status_name " . 
+    "FROM orders o JOIN order_status os ON o.id_order_status = os.id_order_status WHERE id_user = :userId";
+    $arg = ['userId' => $this->userId];
+    return db::getRows($sql, $arg);
+  }
+
   private $userId;
 }
