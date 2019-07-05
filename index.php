@@ -10,7 +10,9 @@ require_once './db.php';
 spl_autoload_register('c_autoload');
 //TODO переписать автозагрузчик для подключения всех классов
 function c_autoload($classname){
-	include_once("c/$classname.php");
+	if (file_exists("c/$classname.php")){
+		include_once("c/$classname.php");
+	}	
 }
 
 //site.ru/index.php?act=auth&c=User
