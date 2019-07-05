@@ -25,6 +25,6 @@ abstract class C_Base extends C_Controller
 		}
 		$arg['goodsInBasket'] = $goodsInBasket;
 		$arg['user'] = $_SESSION['user'];
-		echo $twig->render($template, $arg);	
+		echo $twig->render(strtolower(get_class($this)) . '/' . $template, $arg);	
 	}
 }
