@@ -41,10 +41,12 @@
   <button type="submit" class="btn btn-primary">Оформить заказ</button> 
 </form>
 {% endif %}
+{% else %}
+<p>Пока пусто...</p>
 {% endif %}
 
 {% if user %}
-<p>Ваши заказы:</p>
+<h2>Ваши заказы:</h2>
 <table class="table table-condensed"></tbody>
   <thead>
     <tr>
