@@ -4,9 +4,10 @@ class M_User{
   private $userName;
   private $userLogin;
   private $userId;
+  private $role;
 
   public function login($login, $pass){
-    $sql = "SELECT id_user, user_name, user_login, user_password FROM user WHERE user_login = :login";
+    $sql = "SELECT u.id_user, r.role_name, u.user_name, u.user_login, u.user_password FROM user u join role r on u.id_role = r.id_role WHERE u.user_login = :login";
     $arg = ['login' => $login];
     $passHash = md5($pass);
     $user = db::getRow($sql, $arg);
@@ -16,6 +17,7 @@ class M_User{
           $this->userName = $user['user_name'];
           $this->userLogin = $user['user_login'];
           $this->userId = $user['id_user'];
+          $this->role = $user['role_name'];
           return true;
         }
       }
@@ -33,6 +35,10 @@ class M_User{
 
   public function getName(){
     return $this->userName;
+  }
+
+  public function getRole(){
+    return $this->role;
   }
 
   public function new($userName, $login, $password){

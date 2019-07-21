@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Товаровы</h1>
+<a href="index.php?act=create&c=good">Создать</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>действие</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for good in goods %}
+    <tr>
+        <td>{{ good.name }}</td>
+        <td>
+            <a href="index.php?act=edit&c=good&id={{ good.id_good }}">редактировать</a> | 
+            <a href="index.php?act=delete&c=good&id={{ good.id_good }}">удалить</a>
+        </td>
+    </tr>
+  {% endfor %}        
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

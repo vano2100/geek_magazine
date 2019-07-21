@@ -45,6 +45,7 @@ class C_User extends C_Base
 				$_SESSION['user']['id'] = $user->getId();
 				$_SESSION['user']['name'] = $user->getName();
 				$_SESSION['user']['login'] = $user->getLogin();
+				$_SESSION['user']['role'] = $user->getRole();
 				header('location: index.php');
 			}
 			

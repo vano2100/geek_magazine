@@ -37,6 +37,13 @@
             <li {% if main %} class="active" {% endif %}><a href="index.php">Home</a></li>
             <li {% if catalog %} class="active" {% endif %}><a href="index.php?act=view&c=catalog">Каталог товаров</a></li>
             <li {% if basket %} class="active" {% endif %}><a href="index.php?act=view&c=basket">Корзина ({{ goodsInBasket }})</a></li>
+            {% if user.role == "admin" %}
+            <li> <a href="index.php?act=index&c=admin">Пользователи</a></li>
+            <li> <a href="index.php?act=index&c=good">Товары</a></li>
+            {% endif %}
+            {% if user.role == "manager" %}
+            <li> <a href="index.php?act=index&c=order">Заказы</a> </li>
+            {% endif %}
           </ul>
           {% if user %}
           <ul class="nav navbar-nav  navbar-right">

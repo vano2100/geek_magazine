@@ -6,9 +6,9 @@ class C_Catalog extends C_Base
 	public function action_index(){
         $this->title .= '::Каталог товаров';
         
-        $goods = db::getRows('SELECT * FROM goods', []);
+        $goods = new M_Good();
         $this->render('Catalog.html', ['title' => $this->title, 
-        'catalog' => '1', 'goods' => $goods]);	
+        'catalog' => '1', 'goods' => $goods->getAll()]);	
     }
     
     public function action_view(){
