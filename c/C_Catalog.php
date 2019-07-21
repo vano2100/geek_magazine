@@ -1,11 +1,7 @@
 <?php
-require_once('m/M_Basket.php');
 
 class C_Catalog extends C_Base
 {
-	//
-	// Конструктор.
-	//
 	
 	public function action_index(){
         $this->title .= '::Каталог товаров';
@@ -17,6 +13,14 @@ class C_Catalog extends C_Base
     
     public function action_view(){
         $this->action_index();
+    }
+
+    public function action_viewItem(){
+        $id = (int)$_GET['id'];
+        $goods = new M_Good();
+        $good = $goods->getById($id);
+        $this->render('Good.html', ['title' => $this->title, 
+        'catalog' => '1', 'good' => $good]);
     }
 
     public function action_buy(){

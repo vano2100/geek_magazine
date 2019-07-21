@@ -8,10 +8,12 @@ require_once './vendor/autoload.php';
 require_once './db.php';
 
 spl_autoload_register('c_autoload');
-//TODO переписать автозагрузчик для подключения всех классов
+
 function c_autoload($classname){
 	if (file_exists("c/$classname.php")){
 		include_once("c/$classname.php");
+	} else if (file_exists("m/$classname.php")){
+		include_once("m/$classname.php");
 	}	
 }
 

@@ -1,5 +1,4 @@
 <?php
-require_once('m/M_Basket.php');
 
 class C_Basket extends C_Base
 {

@@ -9,14 +9,6 @@ class M_Good {
     private $id_category;
     private $status;
 
-    public function __construct($name, $price, $id_category, $status)
-    {
-        $this->name = $name;
-        $this->price = $price;
-        $this->id_category = $id_category;
-        $this->status = $status;
-    }
-
     public function save(){
 
     }
@@ -26,7 +18,9 @@ class M_Good {
     }
 
     public function getById($id){
-
+        $sql = "SELECT id_good, name, price FROM goods where id_good = :id";
+        $arg = ['id' => $id];
+        return db::getRow($sql, $arg);
     }
 
     public function findByName($name){

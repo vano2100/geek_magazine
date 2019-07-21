@@ -1,8 +1,4 @@
 <?php
-//
-// Конттроллер страницы чтения.
-//
-require_once('m/M_User.php');
 
 class C_User extends C_Base
 {

@@ -10,6 +10,7 @@
   <div class="col-md-4">
     <h2>{{ good.name }}</h2>
     <p>{{ good.price }}p.</p>
+    <a href="index.php?act=viewItem&c=catalog&id={{ good.id_good }}">подробнее</a>
     {% if user %}
     <form action="index.php?act=buy&c=catalog" method="post">
       <input type="hidden" name="add" value="{{ good.id_good }}">
