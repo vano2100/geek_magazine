@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Заказ - №{{ order.id_order }} от {{ order.datetime_create }}</h1>
+<h2>на сумму: {{ order.amount }}</h2>
+<div>Адрес доставки: {{ order.destination }}</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for good in goods %}
+        <tr>
+            <td>{{ good.name }}</td>
+            <td>{{ good.price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if order.id_order_status == '1' %}
+<form class="form-horizontal" role="form" method="POST" action="index.php?act=send&c=order">
+        <input type="hidden" name="id" value="{{ order.id_order }}">
+        <button type="submit" class="btn btn-default">Отправить</button>
+</form>
+{% else %}
+<div>Товар отправлен покупателю</div>
+
+{% endif %}
+<a href="#" onclick="history.back()">назад</a>
+{% endblock %}

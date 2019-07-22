@@ -41,5 +41,11 @@ class M_Basket{
     return db::getRows($sql, $arg);
   }
 
+  public function getByOrder($orderId){
+    $sql = "SELECT g.name, b.price FROM basket b JOIN goods g ON b.id_good = g.id_good WHERE id_order = :id";
+    $arg = ['id' => $orderId];
+    return db::getRows($sql, $arg);
+  }
+
   private $userId;
 }

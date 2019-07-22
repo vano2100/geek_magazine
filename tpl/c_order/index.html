@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Заказы</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Сумма</th>
+            <th>Статус</th>
+            <th>действие</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for order in orders %}
+    <tr>
+        <td>{{ order.datetime_create }}</td>
+        <td>{{ order.amount }}</td>
+        <td>{{ order.order_status_name }}</td>
+        <td>
+            <a href="index.php?act=view&c=order&id={{ order.id_order }}">Просмотр</a>
+        </td>
+    </tr>
+  {% endfor %}        
+    </tbody>
+</table>
+
+</div>
+{% endblock %}
