@@ -47,5 +47,25 @@ class M_User{
     db::insert($sql, $arg);
   }
 
+  public function getAll(){
+    return $user = db::getRows("SELECT u.id_user, u.user_name, u.user_login, r.role_name FROM user u join role r on u.id_role = r.id_role", []);
+  }
+
+  public function delete($id){
+    $sql = "DELETE FROM user WHERE id_user = :id";
+    $arg = ['id' => $id];
+    db::delete($sql, $arg);   
+  }
+
+  public function getById($id){
+    $sql = "SELECT id_user, user_name, user_login, id_role FROM user WHERE id_user = :id";
+    return db::getRow($sql, ['id' => $id]);
+  }
+
+  public function update($id, $id_role, $name, $login){
+    $sql = "UPDATE user SET user_name = :username, user_login = :login, id_role = :id_role WHERE id_user = :id";
+    $arg = ['id' => $id, 'username' => $name, 'login' => $login, 'id_role' => $id_role];
+    return db::update($sql, $arg);
+  }  
 
 }

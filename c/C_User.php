@@ -5,37 +5,6 @@ class C_User extends C_Base
 	//
 	// Конструктор.
 	//
-	
-	public function action_auth(){
-		$this->title .= '::Чтение';
-		$text = text_get();
-		$this->content = $this->Template('v/v_index.php', array('text' => $text));	
-		/*$user = new M_User();
-		if($user->auth($login,$pass))
-		*/	
-	}
-	
-	public function action_edit(){
-		$this->title .= '::Редактирование';
-		
-		if($this->isPost())
-		{
-			text_set($_POST['text']);
-			header('location: index.php');
-			exit();
-		}
-		
-		$text = text_get();
-		$this->content = $this->Template('v/v_edit.php', array('text' => $text));	
-		echo $twig->render($pagename . '.html', $vars);	
-	}
-
-	public function action_lk(){
-		$this->title .= '::Личный кабинет';
-		$history = $_SESSION['history'];
-		$username = isset($_SESSION['user']) ? $_SESSION['user'] : "anonimus";
-		$this->content = $this->Template('v/v_lk.php', array('username' => $username, 'lasturls' => $history));		
-	}
 
 	public function action_login(){
     	$this->title .= '::Вход';
@@ -70,5 +39,53 @@ class C_User extends C_Base
 		}	
 		$this->render('registration.html', ['title' => $this->title, 'username' => '1']);	
 	
+	}
+
+	public function action_list(){
+		if ($this->isAdmin()){
+			$this->title .= '::Пользователи';
+			$user = new M_User();
+			$users = $user->getAll();			
+			$this->render('userlist.html', ['title' => $this->title, 'users' => $users]);	
+		} else {
+            header('location: index.php');
+        }
+	}
+
+	public function action_delete(){
+		if ($this->isAdmin()){
+			$id = (int) $_GET['id'];
+			$user = new M_User();
+			$users = $user->delete($id);			
+			header('location: index.php?act=list&c=user');	
+		} else {
+            header('location: index.php');
+        }
+	}
+
+	public function action_edit(){
+		if ($this->isAdmin()){
+			$this->title .= '::Пользователи - редактирование';
+			$id = (int) $_GET['id'];
+			$users = new M_User();
+			$user = $users->getById($id);			
+			$this->render('edit.html', ['title' => $this->title, 'ruser' => $user]);	
+		} else {
+            header('location: index.php');
+        }
+	}
+
+	public function action_save(){
+		if ($this->isAdmin()){
+			$id = (int) $_POST['id'];
+			$id_role = (int) $_POST['role'];
+			$name = $_POST['username'];
+			$login = $_POST['login'];
+			$user = new M_User();
+			$user->update($id, $id_role, $name, $login);			
+			header('location: index.php?act=list&c=user');	
+		} else {
+            header('location: index.php');
+        }		
 	}
 }

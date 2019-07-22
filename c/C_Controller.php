@@ -32,6 +32,11 @@ abstract class C_Controller
 		return $_SERVER['REQUEST_METHOD'] == 'POST';
 	}
 
+	protected function IsAdmin()
+	{
+		return $_SESSION['user']['role'] == 'admin';
+	}
+
 	// Если вызвали метод, которого нет - завершаем работу
 	public function __call($name, $params){
 		$this->title .= '::Страница не найдена';

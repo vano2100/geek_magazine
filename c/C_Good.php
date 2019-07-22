@@ -11,7 +11,7 @@ class C_Good extends C_Base
     }
 
     public function action_delete(){
-        if ($_SESSION['user']['role'] == 'admin'){
+        if ($this->isAdmin()){
             $id = (int)$_GET['id'];
             $good = new M_Good();
             $good->delete($id);
@@ -23,7 +23,7 @@ class C_Good extends C_Base
 
     public function action_edit(){
         $this->title .= ':: Редактирование';
-        if ($_SESSION['user']['role'] == 'admin'){
+        if ($this->isAdmin()){
             $id = (int)$_GET['id'];
             $goods = new M_Good();
             $good = $goods->getById($id);
@@ -36,7 +36,7 @@ class C_Good extends C_Base
 
     public function action_create(){
         $this->title .= ':: Новый';
-        if ($_SESSION['user']['role'] == 'admin'){
+        if ($this->isAdmin()){
             $this->render('good.html', ['title' => $this->title]);
         } else {
             header('location: index.php');
@@ -44,17 +44,22 @@ class C_Good extends C_Base
     }
 
     public function action_save(){
-        if ($this->IsPost()){
-            $name = $_POST['name'];
-            $price = (double) $_POST['price'];
-            $good = new M_Good();
-            if ($_POST['id']){
-                $id = (int)$_POST['id'];
-                $good->update($id, $name, $price);
-            } else {
-                $good->save($name, $price);
+        if ($this->isAdmin()){
+            if ($this->IsPost()){
+                $name = $_POST['name'];
+                $price = (double) $_POST['price'];
+                $good = new M_Good();
+                if ($_POST['id']){
+                    $id = (int)$_POST['id'];
+                    $good->update($id, $name, $price);
+                } else {
+                    $good->save($name, $price);
+                }
+                header('location: index.php?act=index&c=good');
             }
-            header('location: index.php?act=index&c=good');
+        }else {
+            header('location: index.php');
         }
+        
     }
 }

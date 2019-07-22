@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Пользователи</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Логин</th>
+            <th>Роль</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for user in users %}
+    <tr>
+        <td>{{ user.user_name }}</td>
+        <td>{{ user.user_login }}</td>
+        <td>{{ user.role_name }}</td>
+        <td>
+            <a href="index.php?act=edit&c=user&id={{ user.id_user }}">редактировать</a> | 
+            <a href="index.php?act=delete&c=user&id={{ user.id_user }}">удалить</a>
+        </td>
+    </tr>
+  {% endfor %}        
+    </tbody>
+</table>
+
+</div>
+{% endblock %}
